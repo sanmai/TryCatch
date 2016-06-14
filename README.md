@@ -1,6 +1,7 @@
 # TryCatch
 
 [![Build Status](https://travis-ci.org/sanmai/trycatch.svg?branch=master)](https://travis-ci.org/sanmai/trycatch)
+[![Coverage Status](https://coveralls.io/repos/github/sanmai/trycatch/badge.svg?branch=master)](https://coveralls.io/github/sanmai/trycatch?branch=master)
 
 Exception-handling callable wrapper for Closures and other callables.
 
