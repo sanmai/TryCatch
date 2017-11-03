@@ -44,13 +44,14 @@ class TryCatch
     /**
      * Executes a callable and capture any exceptions while returning the result of execution
      */
-    public function __invoke()
+    public function __invoke(...$args)
     {
+
         try {
-            return call_user_func_array($this->callback, func_get_args());
+            return call_user_func_array($this->callback, $args);
         } catch (Exception $e) {
             if ($this->whenFailed) {
-                return call_user_func($this->whenFailed, $e);
+                return call_user_func($this->whenFailed, $e, ...$args);
             } else {
                 throw $e;
             }

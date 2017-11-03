@@ -59,7 +59,8 @@ class TryCatchTest extends PHPUnit_Framework_TestCase
             return $numerator/$arg;
         };
 
-        $wrapped = TryCatch::wrap($fraction)->whenFailed(function (Exception $e) {
+        $wrapped = TryCatch::wrap($fraction)->whenFailed(function (Exception $e, $arg) {
+            $this->assertEquals(0, $arg);
             return null;
         });
 
@@ -74,7 +75,8 @@ class TryCatchTest extends PHPUnit_Framework_TestCase
                 throw new Exception("Division by zero");
             }
             return M_PI/$divisor;
-        })->whenFailed(function (Exception $e) {
+        })->whenFailed(function (Exception $e, $divisor) {
+            $this->assertEquals(0, $divisor);
             return null;
         });
 
