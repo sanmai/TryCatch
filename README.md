@@ -34,3 +34,7 @@ $object->setCallback(TryCatch::wrap(someCallback)->whenFailed(function (Exceptio
 ```bash
 composer require sanmai/trycatch
 ```
+
+## TODO
+
+Should really put everything inside a namespace. This is going to break API.
