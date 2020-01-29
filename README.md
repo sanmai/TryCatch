@@ -18,7 +18,7 @@ And then you suddenly find that your callback started throwing exceptions here a
 Now, if you want to handle certain types of exceptions gracefully, this is how you could do that:
 
 ```php
-$object->setCallback(TryCatch::wrap(someCallback)->whenFailed(function (Exception $e, $a, $b) {
+$object->setCallback(\TryCatch\TryCatch::wrap(someCallback)->whenFailed(function (\Exception $e, $a, $b) {
     if ($e instanceof SpecificException) {
         // handle this one gracefully
         return null;             
