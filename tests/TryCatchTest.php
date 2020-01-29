@@ -4,7 +4,11 @@
  * Released under the MIT license.
  */
 
-class TryCatchTest extends PHPUnit_Framework_TestCase
+namespace Tests\TryCatch;
+
+use TryCatch\TryCatch;
+
+class TryCatchTest extends \PHPUnit\Framework\TestCase
 {
     public function testSimple()
     {
@@ -24,15 +28,14 @@ class TryCatchTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(4, $wrapped(2));
     }
 
-    /**
-     * @expectedException Exception
-     * @expectedExceptionMessage Unexpected
-     */
     public function testUncaught()
     {
         $wrapped = TryCatch::wrap(function () {
-            throw new Exception("Unexpected");
+            throw new \Exception("Unexpected");
         });
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Unexpected');
 
         $wrapped();
     }
@@ -40,8 +43,8 @@ class TryCatchTest extends PHPUnit_Framework_TestCase
     public function testCaught()
     {
         $wrapped = TryCatch::wrap(function () {
-            throw new Exception("Unexpected");
-        })->whenFailed(function (Exception $e) {
+            throw new \Exception("Unexpected");
+        })->whenFailed(function (\Exception $e) {
             $this->assertEquals('Unexpected', $e->getMessage());
         });
 
@@ -54,12 +57,12 @@ class TryCatchTest extends PHPUnit_Framework_TestCase
 
         $fraction = function ($arg) use ($numerator) {
             if ($arg == 0) {
-                throw new Exception("Division by zero");
+                throw new \Exception("Division by zero");
             }
             return $numerator/$arg;
         };
 
-        $wrapped = TryCatch::wrap($fraction)->whenFailed(function (Exception $e, $arg) {
+        $wrapped = TryCatch::wrap($fraction)->whenFailed(function (\Exception $e, $arg) {
             $this->assertEquals(0, $arg);
             return null;
         });
@@ -72,10 +75,10 @@ class TryCatchTest extends PHPUnit_Framework_TestCase
     {
         $wrapped = TryCatch::wrap(function ($divisor) {
             if ($divisor == 0) {
-                throw new Exception("Division by zero");
+                throw new \Exception("Division by zero");
             }
             return M_PI/$divisor;
-        })->whenFailed(function (Exception $e, $divisor) {
+        })->whenFailed(function (\Exception $e, $divisor) {
             $this->assertEquals(0, $divisor);
             return null;
         });

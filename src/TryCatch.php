@@ -4,6 +4,7 @@
  * Released under the MIT license.
  */
 
+namespace TryCatch;
 
 class TryCatch
 {
@@ -49,7 +50,7 @@ class TryCatch
 
         try {
             return call_user_func_array($this->callback, $args);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             if ($this->whenFailed) {
                 return call_user_func($this->whenFailed, $e, ...$args);
             } else {
