@@ -70,7 +70,7 @@ ci-phan: ci-cs
 ci-phpstan: ci-cs .phpstan.neon
 	$(SILENT) $(PHP) $(PHPSTAN) $(PHPSTAN_ARGS) --no-progress
 
-ci-psalm: ci-cs
+ci-psalm: ci-cs psalm.xml
 	$(SILENT) $(PHP) $(PSALM) $(PSALM_ARGS) --no-cache --shepherd
 
 ci-cs: prerequisites
@@ -93,7 +93,7 @@ phpunit: cs infection.json.dist
 	cp build/logs/junit.xml build/logs/phpunit.junit.xml
 	$(SILENT) $(PHP) $(INFECTION) $(INFECTION_ARGS)
 
-analyze: cs .phpstan.neon
+analyze: cs .phpstan.neon psalm.xml
 	$(SILENT) $(PHP) $(PHAN) $(PHAN_ARGS) --color
 	$(SILENT) $(PHP) $(PHPSTAN) $(PHPSTAN_ARGS)
 	$(SILENT) $(PHP) $(PSALM) $(PSALM_ARGS)
