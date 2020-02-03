@@ -90,11 +90,11 @@ class TryCatchTest extends \PHPUnit\Framework\TestCase
         $wrapped = TryCatch::wrap($fraction)->whenFailed(function (\Exception $e, $arg) {
             $this->assertEquals(0, $arg);
 
-            return null;
+            return true;
         });
 
         $this->assertEquals(50, $wrapped(2));
-        $this->assertNull($wrapped(0));
+        $this->assertTrue($wrapped(0));
     }
 
     public function testFromReadme()
