@@ -19,7 +19,8 @@ And then you suddenly find that your callback started throwing exceptions here a
 Now, if you want to handle certain types of exceptions gracefully, this is how you could do that:
 
 ```php
-$object->setCallback(\TryCatch\TryCatch::wrap(someCallback)->whenFailed(function (\Exception $e, $a, $b) {
+$object->setCallback(\TryCatch\TryCatch::wrap($yourCallback)
+  ->whenFailed(function (\Exception $e, $a, $b) {
     if ($e instanceof SpecificException) {
         // handle this one gracefully
         return null;             
@@ -41,6 +42,3 @@ You can also peek into arguments, that were passed to the callback.
 composer require sanmai/trycatch
 ```
 
-## TODO
-
-Should really put everything inside a namespace in the next major version. This is going to break the API.
